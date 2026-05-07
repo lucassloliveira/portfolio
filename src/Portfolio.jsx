@@ -1,4 +1,4 @@
-import "./Portifolio.css";
+import "./Portfolio.css";
 
 // Componentes da seção
 import { Navbar } from "./components/Navbar";
@@ -9,7 +9,7 @@ import { Habilidades } from "./components/Habilidades";
 import { Contato } from "./components/Contato";
 import { Footer } from "./components/Footer";
 
-export default function Portifolio() {
+export default function Portfolio() {
     return (
         <div className="portifolio">
             <Navbar />

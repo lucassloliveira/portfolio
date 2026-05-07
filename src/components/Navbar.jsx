@@ -18,9 +18,9 @@ export function Navbar() {
             for (const id of secoes) {
                 const el = document.getElementById(id);
                 if(el) {
-                    const react = el.getBoundingClientRect();
+                    const rect = el.getBoundingClientRect();
                     // A seção está visível se o topo está acima de 100px e o rodapé ainda não passou de 100px
-                    if (react.top <= 100 && react.bottom >= 100) {
+                    if (rect.top <= 100 && rect.bottom >= 100) {
                         setSecaoAtiva(id);
                         break
                     }

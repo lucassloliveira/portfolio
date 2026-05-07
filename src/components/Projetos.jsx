@@ -115,7 +115,7 @@ export function Projetos() {
                             carregar mais
                         </button>
                         <span className="load-more__remaining">
-                            +{projetosFiltrados.length - visiveis}projetos
+                            + {projetosFiltrados.length - visiveis}projetos
                         </span>
                     </div>    
                 )}

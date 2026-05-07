@@ -1,6 +1,7 @@
 // Dados do portifolio
 export const DADOS = {
   nome: "Lucas Oliveira",
+  foto: "",
   email: "oliveira.souzaluz@gmail.com",
   github: "https://github.com/lucassloliveira",
   linkedin: "https://www.linkedin.com/in/lucas-oliveira-799b33262/",
@@ -131,25 +132,53 @@ export const PROJETOS= [
 export const HABILIDADES = [
   {
     categoria: "Frontend",
-    skills: ["HTML5", "CSS3", "JavaScript", "React", "Bootstrap", "Tailwind CSS", "Next.js"],
+    skills: [
+      { nome: "HTML5", locked: false },
+      { nome: "CSS3", locked: false },
+      { nome: "JavaScript", locked: false },
+      { nome: "Bootstrap", locked: false },
+      { nome: "Tailwind CSS", locked: false },
+      { nome: "React", locked: false },
+      // studying: true exibe o indicador piscante "estudando agora"
+      { nome: "Next.js", locked: false, studying: true },
+      { nome: "TypeScript", locked: true, tip: "Próximo" },
+    ],
   },
   {
     categoria: "Backend",
-    skills: ["Java", "Spring Boot", "Spring Security", "JPA/Hibernate", "Maven"],
+    skills: [
+      { nome: "Java", locked: true, tip: "Em breve"},
+      { nome: "POO", locked: true, tip: "Em breve"},
+      { nome: "Spring Boot", locked: true, tip: "Em breve"},
+      { nome: "APIs REST", locked: true, tip: "Em breve"},
+      { nome: "Spring Security", locked: true, tip: "Em breve"},
+      { nome: "SOLID", locked: true, tip: "Boas práticas"},
+      { nome: "Design Patterns", locked: true, tip: "Boas práticas"},
+      { nome: "Testes (JUnit)", locked: true, tip: "Qualidade de código"},
+    ],
   },
   {
     categoria: "Banco de Dados",
-    skills: ["MySQL", "PostgreSQL", "H2 Database"],
+    skills: [
+      { nome: "MySQL", locked: true, tip: "Em breve" },
+      { nome: "PostgreSQL", locked: true, tip: "Em breve" },
+      { nome: "MongoDB", locked: true, tip: "Banco NoSQL" },
+    ],
   },
   {
     categoria: "Ferramentas",
-    skills: ["Git", "GitHub", "Docker", "Postman", "IntelliJ IDEA"],
+    skills: [
+      { nome: "Git", locked: false },
+      { nome: "GitHub", locked: false },
+      { nome: "Docker", locked: true, tip: "Em breve" },
+      { nome: "Postman", locked: true, tip: "Teste de APIs" },
+    ],
   },
 ];
 
 // Frases do efeito de digitação 
 export const FRASES_TYPEWRITER = [
-  "Desenvolvedor Full-Stack.",
+  "Desenvolvedor Full-Stack em formação.",
   "Estudante de Java.",
   "Amante de código limpo.",
   "Construindo o futuro.",
