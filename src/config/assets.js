@@ -5,6 +5,6 @@ export const ASSETS = {
     catalogo: '/screenshots/catalogo.png',
     clientehub: '/screenshots/clientehub.png',
     perfil: '/screenshots/perfil.jpeg',
-    todoList: '/screenshots/tofo-list.png',
+    todoList: '/screenshots/todo-list.png',
   },
 }
