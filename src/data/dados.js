@@ -1,7 +1,9 @@
+import { ASSETS } from "../config/assets";
+
 // Dados do portifolio
 export const DADOS = {
   nome: "Lucas Luz",
-  foto: '/src/assets/perfil.jpeg',
+  foto: ASSETS.screenshots.perfil,
   email: "oliveira.souzaluz@gmail.com",
   github: "https://github.com/lucassloliveira",
   linkedin: "https://www.linkedin.com/in/lucas-oliveira-799b33262/",
@@ -74,7 +76,7 @@ export const PROJETOS= [
     categoria: "Frontend",
     github: "https://github.com/lucassloliveira/cadastro-usuario.git",
     demo: "https://cadastro-usuario-tau-five.vercel.app/",
-    imagem: '/src/assets/cadastros-usuario.png',
+    imagem: ASSETS.screenshots.cadastrosUsuario,
     destaque: true,
   },
   {
@@ -87,7 +89,7 @@ export const PROJETOS= [
     categoria: "Frontend",
     github: "https://github.com/lucassloliveira/clientehub.git",
     demo: "https://clientehub.vercel.app/",
-    imagem: '/src/assets/clientehub.png',
+    imagem: ASSETS.screenshots.clientehub,
     destaque: true,
   },
   {
@@ -139,7 +141,7 @@ export const PROJETOS= [
     categoria: "Frontend",
     github: "https://github.com/lucassloliveira/catalogo-produtos.git",
     demo: "https://catalogo-produtos-steel.vercel.app/",
-    imagem: '/src/assets/catalogo.png',
+    imagem: ASSETS.screenshots.catalogo,
     destaque: true,
   },
   {
@@ -152,7 +154,7 @@ export const PROJETOS= [
     categoria: "Frontend",
     github: "https://github.com/lucassloliveira/todo-list.git",
     demo: "https://todo-list-tau-blue-52.vercel.app/",
-    imagem: '/src/assets/todo-list.png',
+    imagem: ASSETS.screenshots.todoList,
     destaque: true,
   },
 ];
