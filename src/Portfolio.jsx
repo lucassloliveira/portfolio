@@ -1,5 +1,3 @@
-import "./Portfolio.css";
-
 // Componentes da seção
 import { Navbar } from "./components/Navbar";
 import { Hero } from "./components/Hero";
@@ -11,7 +9,7 @@ import { Footer } from "./components/Footer";
 
 export default function Portfolio() {
     return (
-        <div className="portifolio">
+        <div className="min-h-screen w-full">
             <Navbar />
 
             <main>
@@ -22,8 +20,7 @@ export default function Portfolio() {
                 <Contato />
             </main>
 
-            <Footer />
-            
+            <Footer /> 
         </div>
     );
 }

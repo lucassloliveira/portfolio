@@ -1,85 +1,73 @@
+import { useEffect, useMemo, useRef } from "react";
 import { DADOS, FRASES_TYPEWRITER } from "../data/dados";
 import { useTypewriter } from "../hooks/useTypewriter";
 
-// Ilustração SVG
-function TechIllustration() {
-    return (
-        <div className="hero__decoration" aria-hidden="true">
-            <svg
-                viewBox="0 0 320 260"
-                xmlns="http://www.w3.org/2000/svg"
-                className="hero__illustration"
-            >
-                {/* Janela do editor */}
-                <rect x="10" y="10" width="300" height="240" rx="12" fill="#141023" stroke="rgba(179,102,255,0.3)" strokeWidth="1.5" />
+// Caracteres flutuantes
+const CHARS = ['{', '}', '/>', '=>', '//', '()', '[]', '&&', '</>', 'fn', '0x', '!=', '::'];
 
-                {/* Barra de título */}
-                <rect x="10" y="10" width="300" height="36" rx="12" fill="#0f0a1a" />
-                <rect x="10" y="34" width="300" height="12" fill="#0f0a1a" />
+function CodeParticles() {
+    // Refs para manipular o DOM diretamente — zero re-renders
+  const refsParticulas = useRef([]);
+  const animRef        = useRef(null);
 
-                {/* Botões da janela */}
-                <circle cx="34" cy="28" r="5" fill="rgba(255,100,100,0.5)" />
-                <circle cx="52" cy="28" r="5" fill="rgba(255,200,0,0.5)" />
-                <circle cx="70" cy="28" r="5" fill="rgba(0,200,100,0.5)" />
+  // Dados estáveis: gerados uma vez, nunca recalculados
+  const particulas = useMemo(() =>
+    Array.from({ length: 18 }, (_, i) => ({
+      id:        i,
+      char:      CHARS[Math.floor(Math.random() * CHARS.length)],
+      x:         5  + Math.random() * 90,           // posição horizontal fixa (%)
+      y:         10 + Math.random() * 80,            // posição vertical base (%)
+      amplitude: 8  + Math.random() * 14,            // altura do float (px)
+      frequencia: 0.00025 + Math.random() * 0.00035, // velocidade (rad/ms) → ~18–40s por ciclo
+      fase:      Math.random() * Math.PI * 2,        // ponto inicial na onda (0 a 2π)
+      tamanho:   9  + Math.random() * 7,             // tamanho da fonte (px)
+      opacidade: 0.12 + Math.random() * 0.10,        // opacidade sutil
+    }))
+  , []);
 
-                {/* Nome do arquivo */}
-                <text x="155" y="33" textAnchor="middle" fontFamily="JetBrains Mono, monospace" fontSize="10" fill="rgba(255,255,255,0.3)">Portfolio.jsx</text>
+  useEffect(() => {
+    // Loop de animação: roda a 60fps sem tocar no estado do React
+    function animar(timestamp) {
+      refsParticulas.current.forEach((el, i) => {
+        if (!el) return;
+        const p = particulas[i];
+        // Onda senoidal pura: sem loop point, infinitamente suave
+        const y = Math.sin(timestamp * p.frequencia + p.fase) * p.amplitude;
+        el.style.transform = `translateY(${y}px)`;
+      });
+      animRef.current = requestAnimationFrame(animar);
+    }
 
-                {/* Números de linha */}
-                {[1,2,3,4,5,6,7,8,9,10].map((n, i) => (
-                    <text key={n} x="28" y={70 + i * 18} fontFamily="JetBrains Mono, monospace" fontSize="9" fill="rgba(179,102,255,0.25)" textAnchor="middle">{n}</text>
-                ))}
+    animRef.current = requestAnimationFrame(animar);
 
-                {/* Linhas de código — simuladas com retângulos */}
-                {/* Linha 1: import */}
-                <text x="44" y="70" fontFamily="JetBrains Mono, monospace" fontSize="9" fill="rgba(179,102,255,0.7)">import</text>
-                <rect x="84" y="62" width="60" height="8" rx="2" fill="rgba(123,104,255,0.25)" />
-                <text x="148" y="70" fontFamily="JetBrains Mono, monospace" fontSize="9" fill="rgba(255,255,255,0.3)">from</text>
-                <rect x="170" y="62" width="80" height="8" rx="2" fill="rgba(179,102,255,0.15)" />
+    // Cleanup: cancela o loop quando o componente desmonta
+    return () => cancelAnimationFrame(animRef.current);
+  }, [particulas]);
 
-                {/* Linha 2: vazia */}
-
-                {/* Linha 3: export */}
-                <text x="44" y="106" fontFamily="JetBrains Mono, monospace" fontSize="9" fill="rgba(179,102,255,0.7)">export function</text>
-                <text x="144" y="106" fontFamily="JetBrains Mono, monospace" fontSize="9" fill="rgba(123,200,255,0.8)">Portfolio</text>
-                <text x="195" y="106" fontFamily="JetBrains Mono, monospace" fontSize="9" fill="rgba(255,255,255,0.4)">() {"{"}</text>
-
-                {/* Linha 4: return */}
-                <text x="52" y="124" fontFamily="JetBrains Mono, monospace" fontSize="9" fill="rgba(179,102,255,0.7)">  return</text>
-                <text x="97" y="124" fontFamily="JetBrains Mono, monospace" fontSize="9" fill="rgba(255,255,255,0.3)"> (</text>
-
-                {/* Linha 5: JSX */}
-                <text x="60" y="142" fontFamily="JetBrains Mono, monospace" fontSize="9" fill="rgba(255,150,80,0.7)">    &lt;div</text>
-                <text x="96" y="142" fontFamily="JetBrains Mono, monospace" fontSize="9" fill="rgba(123,200,255,0.6)"> className</text>
-                <text x="154" y="142" fontFamily="JetBrains Mono, monospace" fontSize="9" fill="rgba(255,255,255,0.3)">=</text>
-                <rect x="160" y="134" width="60" height="8" rx="2" fill="rgba(179,102,255,0.2)" />
-   
-                { /* Linha 6 */}
-                <rect x="68" y="152" width="120" height="8" rx="2" fill="rgba(255,255,255,0.06)" />
-        
-                {/* Linha 7 */}
-                <rect x="68" y="170" width="90" height="8" rx="2" fill="rgba(255,255,255,0.06)" />
-        
-                {/* Linha 8: fechamento */}
-                <text x="60" y="206" fontFamily="JetBrains Mono, monospace" fontSize="9" fill="rgba(255,150,80,0.7)">    &lt;/div&gt;</text>
-        
-                {/* Linha 9 */}
-                <text x="52" y="224" fontFamily="JetBrains Mono, monospace" fontSize="9" fill="rgba(255,255,255,0.3)">  )</text>
-        
-                {/* Linha 10: fechamento */}
-                <text x="44" y="242" fontFamily="JetBrains Mono, monospace" fontSize="9" fill="rgba(255,255,255,0.3)">{"}"}</text>
-   
-                {/* Cursor piscante */}
-                <rect x="44" y="188" width="2" height="12" rx="1" fill="rgba(179,102,255,0.9)">
-                <animate attributeName="opacity" values="1;0;1" dur="1.2s" repeatCount="indefinite" />
-                </rect>
-        
-                {/* Glow no fundo */}
-                <ellipse cx="160" cy="240" rx="120" ry="20"
-                fill="rgba(179,102,255,0.06)" />
-            </svg>    
-        </div>
-    );
+  return (
+    <div
+      className="absolute inset-0 pointer-events-none select-none overflow-hidden"
+      aria-hidden="true"
+    >
+      {particulas.map((p, i) => (
+        <span
+          key={p.id}
+          ref={(el) => (refsParticulas.current[i] = el)}
+          className="absolute font-mono"
+          style={{
+            left:      `${p.x}%`,
+            top:       `${p.y}%`,
+            fontSize:  `${p.tamanho}px`,
+            opacity:   p.opacidade,
+            color:     '#b366ff',
+            willChange: 'transform', // GPU-accelerated
+          }}
+        >
+          {p.char}
+        </span>
+      ))}
+    </div>
+  );
 }
 
 export function Hero() {
@@ -87,47 +75,84 @@ export function Hero() {
     const textoAnimado = useTypewriter(FRASES_TYPEWRITER);
 
     return (
-        <section id="topo" className="hero">
-            {/* Elemnetos decorativos de fundo */}
-            <div className="hero__orb hero__orb--1"/>
-            <div className="hero__orb hero__orb--2"/>
+        <section 
+            id="topo" 
+            className="relative min-h-screen flex flex-col items-center justify-center text-center px-5 bg-bg0 overflow-hidden"
+        >
 
-            {/* Ilustração SVG */}
-            <TechIllustration />
+            {/* Orbe decorativo */}
+            <div
+                className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full pointer-events-none"
+                style={{
+                    background: 'radial-gradient(circle, rgba(179,102,255,0.07) 0%, transparent 70%)',
+                }}
+                aria-hidden="true"
+            />
+
+            {/* Particulas de código flutuantes */}
+            <CodeParticles />
 
             {/* Tag de terminal */}
-            <div className="hero__tag">hello --world</div>
+            <div className="font-mono text-xs text-text3 bg-bg2 border border-accent/15 px-3 py-1.5 rounded-full mb-6 animate-fade-in-up">
+                hello --world
+            </div>
 
             {/* Nome principal */}
-            <h1 className="hero__name">
-                Olá, sou <em>{DADOS.nome}</em>    
+            <h1 
+                className="font-sans font-black text-5xl md:text-7xl tracking-tight text-text1 mb-4 animate-fade-in-up"
+                style={{ animationDelay: '0.1s', opacity: 0 }}
+            >
+                
+                Olá, sou{' '}
+                <em className="text-accent not-italic">
+                    {DADOS.nome}
+                </em>    
             </h1> 
 
             {/* Texto animado com cursor piscando */}
-            <div className="hero__role">
-                <span className="hero__role-prefix">&gt; </span>
+            <div 
+                className="font-mono text-base md:text-lg text-text2 mb-6 flex items-center justify-center gap-1 animate-fade-in-up"
+                style={{ animationDelay: '0.2s', opacity: 0 }}
+            >
+                <span className="text-accent">&gt; </span>
                 <span>{textoAnimado}</span>
                 {/* aria-hidden: esconde o cursor do elitor de tela */}
-                <span className="hero__cursor" aria-hidden="true" />
+                <span 
+                    className="inline-block w-[2px] h-[1.1em] bg-accent align-middle animate-blink" aria-hidden="true"/>
             </div>
 
             {/* Descrição breve */}
-            <p className="hero__desc">{DADOS.sobre1}</p>
+            <p 
+                className="text-text2 max-w-lg text-base leading-relaxed mb-10 animate-fade-in-up"
+                style={{ animationDelay: '0.3s', opacity: 0 }}
+            >
+                {DADOS.sobre1}
+            </p>
 
             {/* Botões de ação */}
-            <div className="hero__buttons">
-                <a href="#projetos" className="btn btn--primary">
+            <div 
+                className="flex gap-4 flex-wrap justify-center animate-fade-in-up"
+                style={{ animationDelay: '0.4s', opacity: 0 }}
+            >
+                <a 
+                    href="#projetos" 
+                    className="font-mono text-sm font-bold px-6 py-3 bg-accent text-bg0 rounded hover:bg-accent/85 transition-all duration-200 hover:-translate-y-px">
                     ver projetos
                 </a>
                 <a
                     href={DADOS.github}
                     target="_blank"
                     rel="noopener noreferrer" //evita acesso ao window.opener
-                    className="btn btn--ghost"
+                    className="font-mono text-sm font-bold px-6 py-3 border border-accent/40 text-accent rounded hover:bg-accent/10 hover:border-accent/70 transition-all duration-200"
                 >
                     github
                 </a>    
             </div>
+
+            {/* Seta para baixo */}
+            <div className="absolute bottom-8 left-1/2 -translate-x-1/2 text-text3 text-xs font-mono animate-bounce">
+                ↓
+            </div>   
         </section>
     );
 }
