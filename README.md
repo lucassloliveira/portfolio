@@ -75,27 +75,50 @@ A cada `git push` na branch `main`, o Vercel re-deploya automaticamente.
 ## Estrutura do projeto
 
 ```
-src/
-├── components/
-│   ├── ui/
-│   │   ├── SectionLabel.jsx   # Label estilo comentário de código
-│   │   └── Divider.jsx        # Linha decorativa
-│   ├── Navbar.jsx             # Navbar fixa com detecção de seção e menu mobile
-│   ├── Hero.jsx               # Hero com typewriter e partículas animadas via rAF
-│   ├── Sobre.jsx              # Apresentação pessoal com card estilo terminal
-│   ├── Projetos.jsx           # Grid de projetos com filtro por categoria
-│   ├── ProjetoCard.jsx        # Card reutilizável com suporte a screenshot e demo
-│   ├── Habilidades.jsx        # Skills por categoria com indicadores de progresso
-│   ├── Contato.jsx            # Formulário integrado ao Formspree
-│   └── Footer.jsx
-├── data/
-│   └── dados.js               # ⭐ Fonte única de dados — edite aqui
-├── hooks/
-│   ├── useTypewriter.js       # Hook do efeito de digitação
-│   └── useReveal.js           # Hook de animação de entrada por scroll
-├── index.css                  # Tailwind + estilos globais
-├── main.jsx
-└── Portfolio.jsx              # Componente raiz
+portfolio/
+├── public/
+│   ├── screenshots/              # 📸 Screenshots dos projetos
+│   │   ├── cadastros-usuario.png
+│   │   ├── catalogo.png
+│   │   ├── clientehub.png
+│   │   ├── perfil.jpeg
+│   │   └── tofo-list.png
+│   │
+├── src/
+│   ├── components/
+│   │   ├── ui/
+│   │   │   ├── SectionLabel.jsx      # Label estilo comentário de código
+│   │   │   └── Divider.jsx           # Linha decorativa
+│   │   ├── Navbar.jsx                # Navbar fixa com detecção de seção ativa
+│   │   ├── Hero.jsx                  # Seção hero com typewriter e partículas
+│   │   ├── Sobre.jsx                 # Apresentação pessoal em card terminal
+│   │   ├── Projetos.jsx              # Grid com filtro por categoria
+│   │   ├── ProjetoCard.jsx           # Card reutilizável de projeto
+│   │   ├── Habilidades.jsx           # Skills por categoria + indicadores
+│   │   ├── Contato.jsx               # Formulário Formspree
+│   │   └── Footer.jsx                # Rodapé
+│   │
+│   ├── data/
+│   │   └── dados.js                  # ⭐ Dados centralizados
+│   │
+│   ├── config/
+│   │   └── assets.js                 # 🎯 Config centralizada de assets
+│   │
+│   ├── hooks/
+│   │   ├── useTypewriter.js          # Hook: efeito de digitação
+│   │   └── useReveal.js              # Hook: reveal por scroll
+│   │
+│   ├── styles/
+│   │   └── index.css                 # Tailwind + estilos globais
+│   │
+│   ├── Portfolio.jsx                 # Componente raiz
+│   └── main.jsx                      # Entry point
+│
+├── index.html
+├── vite.config.js
+├── tailwind.config.js
+├── package.json
+└── README.md                         # Este arquivo
 ```
 
 ---
